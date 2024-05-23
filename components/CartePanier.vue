@@ -16,11 +16,6 @@
             <h6 class="font-semibold text-base leading-7 text-black">
               {{ panier.panier.nom }}
             </h6>
-            <h6
-              class="font-medium text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-indigo-600"
-            >
-              {{ panier.panier.prix }}€
-            </h6>
           </div>
         </div>
         <div
@@ -45,10 +40,14 @@
 <script setup>
 import { useStore } from '~/stores/jeux_stores';
 const jeuxStores = useStore();
+const { donnees, total } = storeToRefs(jeuxStores);
 
 const panier = defineProps(["panier"]);
 const suppPanier = (id, prix) => {
   jeuxStores.supprPrix(prix);
   jeuxStores.supprJeux(id);
+  if(donnees.value.length <= 0){
+    total.value = 0;
+  }
 }
 </script>
