@@ -2,9 +2,9 @@
   <NavHeader />
   <div>
     <section
-      class="relative z-10 after:contents-[''] after:absolute after:z-0 after:h-full xl:after:w-1/3 after:top-0 after:right-0"
+      class="relative after:contents-[''] after:absolute after:z-0 after:h-full xl:after:w-1/3 after:top-0 after:right-0"
     >
-      <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto relative z-10">
+      <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto relative">
         <div class="grid grid-cols-12">
           <div
             class="col-span-12 xl:col-span-8 lg:pr-8 pt-14 pb-8 lg:py-24 w-full max-xl:max-w-3xl max-xl:mx-auto"
@@ -94,7 +94,7 @@
                       />
                     </div>
                   </div>
-                  <card-number-element/>
+                  <card-number-element />
                 </div>
               </div>
               <button
@@ -103,9 +103,9 @@
                 :disabled="total <= 0"
               >
                 <div v-if="boolPayer">
-                  <span class="loading loading-dots loading-lg"></span>
+                  <span class="loading loading-dots loading-sm"></span>
                 </div>
-                <div v-else>Payer {{ total }}€</div>
+                <div v-else>Payer {{ total.toFixed(2) }}€</div>
               </button>
             </div>
           </div>
@@ -118,34 +118,55 @@
 <script setup>
 import { useStore } from "~/stores/jeux_stores";
 import { storeToRefs } from "pinia";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 const jeuxStores = useStore();
 const { donnees, total } = storeToRefs(jeuxStores);
 let carteCredit = defineModel("carteCredit");
 let cvc = defineModel("cvc");
 let dateExpir = defineModel("dateExpir");
-let boolPayer = false;
+let boolPayer = ref(false);
 // const config = useRuntimeConfig();
 const liste_jeux = donnees.value.map((jeux) => jeux.nom);
 // console.log(liste_jeux);
+const router = useRouter();
 
 const clickPayer = async () => {
   try {
+    boolPayer.value = true;
+    setTimeout(() => {
+      Toastify({
+        text: "Merci, vous avez effectué votre paiement",
+        duration: 4500,
+        gravity: "bottom",
+        position: "right",
+        stopOnFocus: false,
+        style: {
+          background: "#bec000",
+        },
+      }).showToast();
+      donnees.value = [];
+      total.value = 0;
+      boolPayer.value = false;
+      router.push('/');
+    }, 2500);
+
     // console.log(carteCredit.value);
     // console.log(cvc.value);
     // console.log(dateExpir.value);
-    const fetchStripe = useFetch("/api/stripeServer", {
-      method: "POST",
-      body: {
-        montant: total.value.toFixed(2),
-        // paiementID: 'test',
-        liste: liste_jeux.join(", "),
-        carteCredit: carteCredit.value,
-        cvc: cvc.value,
-        dateExpir: dateExpir.value,
-      },
-    });
-    fetchStripe.then((res) => console.log(res));
+    // const fetchStripe = useFetch("/api/stripeServer", {
+    //   method: "POST",
+    //   body: {
+    //     montant: total.value.toFixed(2),
+    //     // paiementID: 'test',
+    //     liste: liste_jeux.join(", "),
+    //     carteCredit: carteCredit.value,
+    //     cvc: cvc.value,
+    //     dateExpir: dateExpir.value,
+    //   },
+    // });
+    // fetchStripe.then((res) => console.log(res));
     console.log("Click");
     // const { error, paymentMethod } = await stripe.
   } catch (error) {
