@@ -24,7 +24,10 @@
             class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
           <li><NuxtLink to="/liste-jeux">Liste des Jeux</NuxtLink></li>
-          <li><NuxtLink to="/panier">
+          <li class="indicator"><NuxtLink to="/panier">
+            <div v-if="donnees.length > 0">
+              <span class="indicator-item indicator-middle badge badge-secondary">{{ donnees.length }}</span>
+            </div>
             Panier
           </NuxtLink></li>
           <li><NuxtLink to="/contact">Contact</NuxtLink></li>
