@@ -2,8 +2,9 @@
   <div class="card bg-base-100 shadow-xl">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+          v-bind:src="`data:image/jpeg;base64,${jeux.jeux.image_encode}`"
           alt="jeux_videos"
+          class="objec-cover h-56 w-full"
         />
       </figure>
       <div class="card-body">
@@ -53,7 +54,7 @@ const diffJours = Math.floor(diffMilli / (1000 * 60 * 60 * 24));
 
 const ajoutPanier = (jeux) => {
     jeuxStores.ajoutPrix(jeux.prix_neuf);
-    jeuxStores.addJeux({ id: jeux.id, nom: jeux.nom, prix: jeux.prix_neuf});
+    jeuxStores.addJeux({ id: jeux.id, nom: jeux.nom, prix: jeux.prix_neuf, image: jeux.image_encode});
 }
 
 </script>

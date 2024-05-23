@@ -4,6 +4,7 @@ interface Jeux {
   id: number;
   nom: string;
   prix: number;
+  image: string;
 }
 
 export const useStore = defineStore("jeux", {

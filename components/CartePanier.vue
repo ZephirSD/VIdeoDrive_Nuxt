@@ -5,7 +5,7 @@
     >
       <div class="w-full md:max-w-[126px]">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+          v-bind:src="`data:image/jpeg;base64,${panier.panier.image}`"
           alt="jeux"
           class="mx-auto"
         />

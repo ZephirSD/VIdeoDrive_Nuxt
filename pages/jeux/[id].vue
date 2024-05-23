@@ -6,12 +6,12 @@
         <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
           <img
             class="w-full dark:hidden"
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+            v-bind:src="`data:image/jpeg;base64,${jeu.image_encode}`"
             alt="jeux"
           />
           <img
             class="w-full hidden dark:block"
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+            v-bind:src="`data:image/jpeg;base64,${jeu.image_encode}`"
             alt="jeux"
           />
         </div>
@@ -74,7 +74,7 @@ const { data: jeux_id } = await useAsyncData("jeux", async () => {
 
 const ajoutPanier = (jeux) => {
   jeuxStores.ajoutPrix(jeux.prix_neuf);
-  jeuxStores.addJeux({ id: jeux.id, nom: jeux.nom, prix: jeux.prix_neuf});
+  jeuxStores.addJeux({ id: jeux.id, nom: jeux.nom, prix: jeux.prix_neuf, image: jeux.image_encode});
 }
 
 </script>
