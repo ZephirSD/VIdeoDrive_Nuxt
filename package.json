@@ -16,10 +16,12 @@
     "@pinia/nuxt": "^0.5.1",
     "@supabase/supabase-js": "^2.43.1",
     "@unlok-co/nuxt-stripe": "^3.0.0",
+    "@vue-email/nuxt": "^0.8.19",
     "nuxt": "^3.11.2",
     "pinia": "^2.1.7",
     "sass": "^1.76.0",
     "toastify-js": "^1.12.0",
+    "vee-validate": "^4.12.8",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

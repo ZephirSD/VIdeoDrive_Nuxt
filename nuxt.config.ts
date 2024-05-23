@@ -39,6 +39,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     '@vesp/nuxt-fontawesome',
     '@pinia/nuxt',
-    "@unlok-co/nuxt-stripe"
+    "@unlok-co/nuxt-stripe",
+    '@vue-email/nuxt'
   ]
 })
