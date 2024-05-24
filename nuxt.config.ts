@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     '@vesp/nuxt-fontawesome',
     '@pinia/nuxt',
     "@unlok-co/nuxt-stripe",
-    '@vue-email/nuxt'
+    '@vue-email/nuxt',
+    "@nuxt/image"
   ]
 })
