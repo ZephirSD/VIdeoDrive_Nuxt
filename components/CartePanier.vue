@@ -5,7 +5,7 @@
     >
       <div class="w-full md:max-w-[126px]">
         <NuxtImg
-          v-bind:src="`data:image/jpeg;base64,${panier.panier.image}`"
+          v-bind:src="`data:image/jpeg;base64,${listeImage.find((lsImage) => panier.panier.nom === lsImage.nomJeux).dataImage}`"
           class="mx-auto"
           alt="jeux"
           loading="lazy"
@@ -44,6 +44,8 @@
 import { useStore } from "~/stores/jeux_stores";
 const jeuxStores = useStore();
 const { donnees, total } = storeToRefs(jeuxStores);
+const imageStores = useImageJeuxStores();
+const { listeImage } = storeToRefs(imageStores);
 
 const panier = defineProps(["panier"]);
 const suppPanier = (id, prix) => {
@@ -53,4 +55,5 @@ const suppPanier = (id, prix) => {
     total.value = 0;
   }
 };
+
 </script>

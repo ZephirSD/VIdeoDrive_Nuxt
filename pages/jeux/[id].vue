@@ -11,14 +11,16 @@
       <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
         <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
           <NuxtImg
-            v-bind:src="`data:image/jpeg;base64,${jeu.image_encode}`"
+            v-bind:src="`data:image/jpeg;base64,${listeImage.find((lsImage) => jeu.nom === lsImage.nomJeux).dataImage}`"
             alt="jeux"
             class="w-full dark:hidden"
+            loading="lazy"
           />
           <NuxtImg
-            v-bind:src="`data:image/jpeg;base64,${jeu.image_encode}`"
+            v-bind:src="`data:image/jpeg;base64,${listeImage.find((lsImage) => jeu.nom === lsImage.nomJeux).dataImage}`"
             alt="jeux"
             class="w-full hidden dark:block"
+            loading="lazy"
           />
         </div>
 
@@ -60,8 +62,12 @@
 <script setup>
 import { useStore } from "~/stores/jeux_stores";
 import { storeToRefs } from "pinia";
+import baseImg from "~/utils/baseImg";
 const jeuxStores = useStore();
 const { donnees } = storeToRefs(jeuxStores);
+const imageStores = useImageJeuxStores();
+const { listeImage } = storeToRefs(imageStores);
+
 
 const route = useRoute();
 const supabase = useSupabaseClient();
@@ -77,6 +83,8 @@ const { data: jeux_id } = await useAsyncData("jeux", async () => {
     .eq("id", route.params.id);
   return data;
 });
+
+baseImg(supabase);
 
 const ajoutPanier = (jeux) => {
   jeuxStores.ajoutPrix(jeux.prix_neuf);

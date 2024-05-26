@@ -1,8 +1,8 @@
 <template>
   <div class="card bg-base-100 shadow-xl">
-    <figure>
+    <figure v-if="listeImage.some((lsImage) => jeux.jeux.nom === lsImage.nomJeux)">
       <NuxtImg
-        v-bind:src="`data:image/jpeg;base64,${jeux.jeux.image_encode}`"
+        v-bind:src="`data:image/jpeg;base64,${listeImage.find((lsImage) => jeux.jeux.nom === lsImage.nomJeux).dataImage}`"
         loading="lazy"
         class="object-cover object-center h-56 w-full"
         alt="jeux_videos"
@@ -51,8 +51,12 @@
 <script setup>
 import { useStore } from "~/stores/jeux_stores";
 import { storeToRefs } from "pinia";
+import baseImg from "~/utils/baseImg";
 const jeuxStores = useStore();
 const { donnees } = storeToRefs(jeuxStores);
+const imageStores = useImageJeuxStores();
+const { listeImage } = storeToRefs(imageStores);
+const supabase = useSupabaseClient();
 
 const jeux = defineProps(["jeux"]);
 const today = Date.now();
@@ -69,4 +73,6 @@ const ajoutPanier = (jeux) => {
     image: jeux.image_encode,
   });
 };
+
+baseImg(supabase);
 </script>

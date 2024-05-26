@@ -22,18 +22,21 @@
 
 <script setup>
 import CarteProduit from "~/components/CarteProduit.vue";
+import baseImg from "~/utils/baseImg";
+const supabase = useSupabaseClient();
 
 useHead({
   title: "VideoGame Website | Listes des Jeux",
 });
 
-const supabase = useSupabaseClient();
 
 const { data: liste_jeux } = await useAsyncData("jeux", async () => {
   const { data } = await supabase
-    .from("jeux")
-    .select("*")
-    .order("nom", { ascending: true }, );
+  .from("jeux")
+  .select("*")
+  .order("nom", { ascending: true }, );
   return data;
 });
+
+baseImg(supabase);
 </script>

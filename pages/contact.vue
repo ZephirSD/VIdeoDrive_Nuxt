@@ -135,6 +135,8 @@
 import { ErrorMessage, Field, Form } from "vee-validate";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import baseImg from "~/utils/baseImg";
+
 
 const selectPays = ref("");
 const boolDisableButton = ref({ email: true, phone: true });
@@ -143,10 +145,14 @@ const emailValue = ref('');
 const telephoneValue = ref('');
 const messsageValue = ref('');
 const router = useRouter();
+const supabase = useSupabaseClient();
+
 
 useHead({
   title: "VideoGame Website | Contact",
 });
+
+baseImg(supabase);
 
 const submitContact = async () => {
   try {

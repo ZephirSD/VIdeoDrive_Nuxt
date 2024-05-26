@@ -120,9 +120,11 @@ import { useStore } from "~/stores/jeux_stores";
 import { storeToRefs } from "pinia";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import baseImg from "~/utils/baseImg";
 
 const jeuxStores = useStore();
 const { donnees, total } = storeToRefs(jeuxStores);
+const supabase = useSupabaseClient();
 let carteCredit = defineModel("carteCredit");
 let cvc = defineModel("cvc");
 let dateExpir = defineModel("dateExpir");
@@ -131,6 +133,8 @@ let boolPayer = ref(false);
 const liste_jeux = donnees.value.map((jeux) => jeux.nom);
 // console.log(liste_jeux);
 const router = useRouter();
+
+baseImg(supabase);
 
 const clickPayer = async () => {
   try {

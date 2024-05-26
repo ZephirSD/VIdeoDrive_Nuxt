@@ -36,7 +36,9 @@
 </template>
 
 <script setup>
+import baseImg from "~/utils/baseImg";
 import CarteProduit from "~/components/CarteProduit.vue";
+
 
 useHead({
   title: 'VideoGame Website'
@@ -44,8 +46,12 @@ useHead({
 
 const supabase = useSupabaseClient();
 
+
 const {data: liste_jeux} = await useAsyncData('jeux', async () => {
   const { data } = await supabase.from('jeux').select('*').order("date_creation",{ ascending: false }).limit(4)
   return data;
 });
+
+baseImg(supabase);
+
 </script>
